@@ -8,17 +8,17 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<context:annotation-config />
-
+	
 	<context:property-placeholder location="classpath:application.properties" />
-
+<!-- 
 	<bean
 		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration" />
 
-	<!--  
+	 
 	<bean
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
 		p:port="${spring.redis.port}" />
-	-->
+	
 
 	<bean
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
@@ -52,4 +52,18 @@
 	<util:list id="sessionListeners">
 		<ref bean="mySessionListener" />
 	</util:list>
+-->
+	<bean id="defaultProfileBean" class="dev.sanket.DefaultProfileBean" />
+
+	<beans profile="tomcat">
+		<bean id="tomcatBean" class="dev.sanket.TomcatBean" />
+
+		<beans profile="activeMQ">
+			<bean id="activeMQ" class="dev.sanket.ActiveMQBean" />
+		</beans>
+	</beans>
+
+	<beans profile="nonTomcat">
+		<bean id="nonTomcatBean" class="dev.sanket.NonTomcatBean" />
+	</beans>
 </beans>
